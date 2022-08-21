@@ -52,7 +52,6 @@ app.get("/api/notes/:id", (request, response) => {
 app.delete("/api/notes/:id", (request, response) => {
     const id = Number(request.params.id);
     notes = notes.filter(note => note.id !== id);
-    console.log('note is deleted of id', id);
     response.status(204).end();
 })
 
@@ -80,7 +79,6 @@ app.post('/api/notes/', (req, res) => {
 })
 
 app.put('/api/notes/:id', (req, res) => {
-    console.log('in update func')
     const id = Number(req.params.id);
     const body = req.body;
     const important = body.important ? body.important : false;
@@ -95,6 +93,7 @@ app.put('/api/notes/:id', (req, res) => {
     }
     const newNote = {id, content, important};
     const newNotes = notes.map(n => n.id !== id ? n : newNote);
+    notes = newNotes;
     return res.json(newNote);
 })
 
